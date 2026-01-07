@@ -85,7 +85,9 @@ export default function HeroSection(): JSX.Element {
           <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-pulse">
             Perfect Creature
           </span>
-          <span className="block text-foreground">Then Battle It</span>
+          <span className="block text-foreground">
+            Battle palyers worldwide
+          </span>
         </motion.h1>
 
         {/* Subheading */}
@@ -106,7 +108,7 @@ export default function HeroSection(): JSX.Element {
           <Button
             size="lg"
             className="w-full sm:w-auto bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-base font-semibold"
-            onClick={() => router.push("/signup")}
+            onClick={() => router.push("/login")}
           >
             Create Your Chimera
             <ChevronRight className="w-5 h-5 ml-2" />
@@ -114,7 +116,7 @@ export default function HeroSection(): JSX.Element {
           <Button
             size="lg"
             variant="outline"
-            className="w-full sm:w-auto border-primary/50 text-foreground hover:bg-primary/10 hover:text-primary transition-colors text-base font-semibold bg-transparent"
+            className="w-full sm:w-auto border-primary/50 text-foreground hover:bg-primary/10 hover:text-primary transition-colors text-base font-semibold bg-transparent cursor-pointer"
             onClick={() => router.push("/battles")}
           >
             Watch Battles

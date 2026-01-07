@@ -4,7 +4,13 @@ import type React from "react";
 import type { JSX } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Zap, Sparkles, Sword, Crown } from "lucide-react";
+import {
+  Zap,
+  Sparkles,
+  Sword,
+  Crown,
+  LucideBadgeDollarSign,
+} from "lucide-react";
 
 const features: Array<{
   icon: React.ReactNode;
@@ -34,7 +40,7 @@ const features: Array<{
     color: "from-accent to-cyan-500",
   },
   {
-    icon: <Zap className="w-8 h-8" />,
+    icon: <LucideBadgeDollarSign className="w-8 h-8" />,
     title: "Trade & Compete",
     description:
       "Trade your creatures with other players, climb the leaderboards, and prove you are the ultimate trainer.",
