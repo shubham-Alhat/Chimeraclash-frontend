@@ -20,15 +20,7 @@ const providers: OAuthProvider[] = [
     color: "bg-gradient-to-r from-slate-900 to-slate-800",
     hoverColor: "hover:from-slate-800 hover:to-slate-900",
   },
-  {
-    name: "Twitter",
-    iconPath: "/xlogo.png",
-    color: "bg-gradient-to-r from-blue-500 to-blue-600",
-    hoverColor: "hover:from-blue-600 hover:to-blue-700",
-  },
 ];
-
-// icon: "𝕏",
 
 export default function OAuthButtons(): JSX.Element {
   const isLoginLoading = useAuthStore((state) => state.isLoginLoading);
@@ -54,12 +46,7 @@ export default function OAuthButtons(): JSX.Element {
   };
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="grid grid-cols-2 gap-3"
-    >
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
       {providers.map((provider) => (
         <motion.div key={provider.name} variants={itemVariants}>
           <Button
