@@ -1,10 +1,9 @@
 "use client";
 
 import type React from "react";
-
 import type { JSX } from "react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronRight, Lock, User, ChevronLeftCircle } from "lucide-react";
 import OAuthButtons from "@/components/oauth-buttons";
 import useAuthStore from "@/store/userAuthStore";
+import { toast } from "sonner";
 
 export default function LoginPage(): JSX.Element {
   const router = useRouter();
@@ -20,6 +20,16 @@ export default function LoginPage(): JSX.Element {
   const [password, setPassword] = useState<string>("");
   const isLoginLoading = useAuthStore((state) => state.isLoginLoading);
   const setIsLoginLoading = useAuthStore((state) => state.setIsLoginLoading);
+
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+
+  // check for redirect error
+  useEffect(() => {
+    if (error) {
+      toast.error("Error while Login");
+    }
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
