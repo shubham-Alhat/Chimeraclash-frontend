@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import api from "@/utils/api";
 
 function Battle() {
   const searchParams = useSearchParams();
@@ -16,7 +17,12 @@ function Battle() {
   }, []);
 
   const handleClick = async () => {
-    await fetch("http://localhost:8000/api/v1/checkme");
+    try {
+      const res = await api.get("/checkme");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

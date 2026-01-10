@@ -13,6 +13,7 @@ import { ChevronRight, Lock, User, ChevronLeftCircle } from "lucide-react";
 import OAuthButtons from "@/components/oauth-buttons";
 import useAuthStore from "@/store/userAuthStore";
 import { toast } from "sonner";
+import api, { BackendResponse, isCustomError } from "@/utils/api";
 
 export default function LoginPage(): JSX.Element {
   const router = useRouter();
@@ -48,11 +49,33 @@ export default function LoginPage(): JSX.Element {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+
+    if (username.trim() === "" || password.trim() === "") {
+      toast.error("All fields are required");
+      return;
+    }
+
     setIsLoginLoading(true);
-    // Mock authentication logic
-    setTimeout(() => {
+
+    try {
+      const res: BackendResponse = await api.post("/auth/login", {
+        username: username.trim(),
+        password: password.trim(),
+      });
+
+      console.log(res);
+      toast.success(res.message);
+    } catch (error) {
+      console.log(error);
+      if (isCustomError(error)) {
+        toast.error(error.message);
+      } else {
+        // Handle unexpected errors
+        toast.error("An unexpected error occurred");
+      }
+    } finally {
       setIsLoginLoading(false);
-    }, 3000);
+    }
   };
 
   return (

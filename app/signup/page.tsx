@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-
+import { isCustomError, BackendResponse } from "@/utils/api";
 import type { JSX } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import OAuthButtons from "@/components/oauth-buttons";
 import useAuthStore from "@/store/userAuthStore";
+import { toast } from "sonner";
+import api from "@/utils/api";
 
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
@@ -64,11 +66,29 @@ export default function SignupPage(): JSX.Element {
       alert("Please agree to the terms and conditions");
       return;
     }
+
+    if (formData.username.length < 6) {
+      toast.error("Username must be at least 6 characters long");
+    }
+
     setIsSignUpLoading(true);
-    // Mock registration logic
-    setTimeout(() => {
+
+    try {
+      const res: BackendResponse = await api.post("/auth/signup", formData);
+      console.log(res);
+      toast.success(res.message);
+    } catch (error) {
+      console.log(error);
+
+      if (isCustomError(error)) {
+        toast.error(error.message);
+      } else {
+        // Handle unexpected errors
+        toast.error("An unexpected error occurred");
+      }
+    } finally {
       setIsSignUpLoading(false);
-    }, 3000);
+    }
   };
 
   return (

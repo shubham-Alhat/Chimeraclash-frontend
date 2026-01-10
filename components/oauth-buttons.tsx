@@ -39,12 +39,6 @@ export default function OAuthButtons(): JSX.Element {
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
 
-  const handleOAuthClick = (provider: string): void => {
-    // Integration point for OAuth flow
-    console.log(`Initiating ${provider} OAuth flow...`);
-    // In a real app, this would redirect to your OAuth provider
-  };
-
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible">
       {providers.map((provider) => (
@@ -52,7 +46,10 @@ export default function OAuthButtons(): JSX.Element {
           <Button
             type="button"
             disabled={isLoginLoading || isSignUpLoading}
-            onClick={() => handleOAuthClick(provider.name)}
+            onClick={() => {
+              setIsLoginLoading(true);
+              window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login/google`;
+            }}
             className={`w-full ${provider.color} ${
               provider.hoverColor
             } text-white font-semibold transition-all cursor-pointer duration-200 hover:shadow-lg hover:shadow-${
